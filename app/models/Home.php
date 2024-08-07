@@ -1,6 +1,13 @@
 <?php
 require_once 'Database.php';
 
+/**
+ * @author Victor Mati
+ * @description This class handles the database operations for the home page.
+ * @version 1.0
+ * @date 2023-07-07
+ */
+
 class Home {
     private $id;
     private $title;
