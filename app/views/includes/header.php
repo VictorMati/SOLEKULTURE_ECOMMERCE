@@ -17,7 +17,7 @@
                         <div class="main-header__dropdown-content">
                             <a href="/profile.php">Profile</a>
                             <a href="/settings.php">Settings</a>
-                            <a href="/contact_seller.php">Contact Seller</a>
+                            <a href="/contact_admin.php">Contact Seller</a>
                             <a href="/edit_profile.php">Edit Profile</a>
                             <a href="/logout.php">Logout</a>
                         </div>

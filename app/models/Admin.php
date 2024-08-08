@@ -14,19 +14,28 @@ class Admin extends User {
     }
 
     // Add a new user
-    public function addUser($username, $password, $email, $fullName, $address, $phoneNumber, $profileImage, $authType) {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $signupDate = date('Y-m-d H:i:s');
-
-        $sql = "INSERT INTO users (username, password, email, full_name, address, phone_number, signup_date, profile_image, auth_type) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $params = [$username, $hashedPassword, $email, $fullName, $address, $phoneNumber, $signupDate, $profileImage, $authType];
-        
-        return $this->db->insert($sql, $params);
+    public function addUser($userData) {
+        $username = $userData['username'];
+        $password = $userData['password'];
+        $email = $userData['email'];
+        $fullName = $userData['fullName'];
+        $address = $userData['address'];
+        $phoneNumber = $userData['phoneNumber'];
+        $profileImage = $userData['profileImage'];
+        $authType = $userData['authType'];
+        return parent::register($username, $password, $email, $fullName, $address, $phoneNumber, $profileImage, $authType);
     }
 
     // Update existing user information
-    public function updateUser($userId, $username, $email, $fullName, $address, $phoneNumber, $profileImage, $authType) {
+    public function updateUser($userId, $userData) {
+        $username = $userData['username'];
+        $email = $userData['email'];
+        $fullName = $userData['fullName'];
+        $address = $userData['address'];
+        $phoneNumber = $userData['phoneNumber'];
+        $profileImage = $userData['profileImage'];
+        $authType = $userData['authType'];
+
         $sql = "UPDATE users SET username = ?, email = ?, full_name = ?, address = ?, phone_number = ?, profile_image = ?, auth_type = ? WHERE id = ?";
         $params = [$username, $email, $fullName, $address, $phoneNumber, $profileImage, $authType, $userId];
         
@@ -40,7 +49,13 @@ class Admin extends User {
     }
 
     // Add a new product
-    public function addProduct($name, $description, $price, $stock, $categoryId, $imageUrl) {
+    public function addProduct($productData) {
+        $name = $productData['name'];
+        $description = $productData['description'];
+        $price = $productData['price'];
+        $stock = $productData['stock'];
+        $categoryId = $productData['categoryId'];
+        $imageUrl = $productData['imageUrl'];
         $createdDate = date('Y-m-d H:i:s');
 
         $sql = "INSERT INTO products (name, description, price, stock, category_id, image_url, created_date) 
@@ -51,7 +66,14 @@ class Admin extends User {
     }
 
     // Update existing product information
-    public function updateProduct($productId, $name, $description, $price, $stock, $categoryId, $imageUrl) {
+    public function updateProduct($productId, $productData) {
+        $name = $productData['name'];
+        $description = $productData['description'];
+        $price = $productData['price'];
+        $stock = $productData['stock'];
+        $categoryId = $productData['categoryId'];
+        $imageUrl = $productData['imageUrl'];
+
         $sql = "UPDATE products SET name = ?, description = ?, price = ?, stock = ?, category_id = ?, image_url = ? WHERE id = ?";
         $params = [$name, $description, $price, $stock, $categoryId, $imageUrl, $productId];
         
@@ -65,7 +87,10 @@ class Admin extends User {
     }
 
     // Add a new category
-    public function addCategory($name, $description) {
+    public function addCategory($categoryData) {
+        $name = $categoryData['name'];
+        $description = $categoryData['description'];
+
         $sql = "INSERT INTO categories (name, description) VALUES (?, ?)";
         $params = [$name, $description];
         
@@ -73,7 +98,10 @@ class Admin extends User {
     }
 
     // Update existing category information
-    public function updateCategory($categoryId, $name, $description) {
+    public function updateCategory($categoryId, $categoryData) {
+        $name = $categoryData['name'];
+        $description = $categoryData['description'];
+
         $sql = "UPDATE categories SET name = ?, description = ? WHERE id = ?";
         $params = [$name, $description, $categoryId];
         
@@ -86,27 +114,41 @@ class Admin extends User {
         return $this->db->delete($sql, [$categoryId]);
     }
 
-    // Manage orders (e.g., view all orders, update order status)
-    public function manageOrders() {
+    // Update order status
+    public function updateOrderStatus($orderId, $status) {
+        $sql = "UPDATE orders SET status = ? WHERE id = ?";
+        $params = [$status, $orderId];
+        return $this->db->update($sql, $params);
+    }
+
+    // Delete a review
+    public function deleteReview($reviewId) {
+        $sql = "DELETE FROM reviews WHERE id = ?";
+        return $this->db->delete($sql, [$reviewId]);
+    }
+
+    // Fetch all orders
+    public function getAllOrders() {
         $sql = "SELECT * FROM orders";
         return $this->db->fetchAll($sql);
     }
 
-    // Manage reviews (e.g., view all reviews, delete reviews)
-    public function manageReviews() {
+    // Fetch order by ID
+    public function getOrderById($orderId) {
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        return $this->db->fetchOne($sql, [$orderId]);
+    }
+
+    // Fetch all reviews
+    public function getAllReviews() {
         $sql = "SELECT * FROM reviews";
         return $this->db->fetchAll($sql);
     }
 
-    // Update site settings (e.g., update configuration settings)
-    public function updateSiteSettings($settingsData) {
-        // Assuming $settingsData is an associative array of settings
-        foreach ($settingsData as $key => $value) {
-            $sql = "UPDATE site_settings SET value = ? WHERE key = ?";
-            $params = [$value, $key];
-            $this->db->update($sql, $params);
-        }
-        return true;
+    // Fetch review by ID
+    public function getReviewById($reviewId) {
+        $sql = "SELECT * FROM reviews WHERE id = ?";
+        return $this->db->fetchOne($sql, [$reviewId]);
     }
 }
 ?>

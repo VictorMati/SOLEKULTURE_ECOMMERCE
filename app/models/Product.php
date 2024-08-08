@@ -1,4 +1,6 @@
 <?php
+require_once 'Database.php';
+
 class Product {
     private $id;
     private $name;
@@ -56,7 +58,7 @@ class Product {
         return $this->db->fetchAll($sql, [$categoryId]);
     }
 
-    // Other getters and setters for private properties
+    // Other getters for private properties
     public function getId() {
         return $this->id;
     }

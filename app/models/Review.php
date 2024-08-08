@@ -1,4 +1,6 @@
 <?php
+require_once 'Database.php';
+
 class Review {
     private $id;
     private $userId;
@@ -47,6 +49,13 @@ class Review {
         $sql = "SELECT * FROM reviews WHERE user_id = ?";
         return $this->db->fetchAll($sql, [$userId]);
     }
+
+    public static function getAllReviews() {
+        $db = new Database();
+        $sql = "SELECT * FROM reviews";
+        return $db->fetchAll($sql);
+    }
+    
 
     // Other getters and setters for private properties
     public function getId() {

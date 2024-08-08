@@ -41,6 +41,13 @@ class Order {
         return $this->db->fetchAll($sql, [$userId]);
     }
 
+    public static function getAllOrders() {
+        $db = new Database();
+        $sql = "SELECT * FROM orders";
+        return $db->fetchAll($sql);
+    }
+    
+
     // Cancel an order
     public function cancelOrder($id) {
         $sql = "UPDATE orders SET status = 'Cancelled' WHERE id = ?";

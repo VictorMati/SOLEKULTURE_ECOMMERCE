@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoleKulture -<?php echo isset($view) ? $view : ''; ?></title>
-    <link rel="stylesheet" href="/public/css/main_styles.css">
+    <title>SoleKulture </title>
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/header.css">
     <link rel="stylesheet" href="/public/css/footer.css">
@@ -15,13 +14,13 @@
     <div class="main-wrapper">
         <!-- Main Sidebar -->
         <div class="main-sidebar">
-            <?php include 'sidebar.php'; ?>
+            <?php include '../includes/sidebar.php'; ?>
         </div>
 
         <div class="main-content-wrapper">
             <!-- Main Header -->
             <div class="main-header">
-                <?php include 'header.php'; ?>
+                <?php include '../includes/header.php'; ?>
             </div>
 
             <!-- Main Content -->
@@ -31,18 +30,18 @@
                 if (isset($view)) {
                     include $view;
                 } else {
-                    include 'home.php';
+                    include '../pages/home.php';
                 }
                 ?>
             </div>
 
             <!-- Main Footer -->
             <div class="main-footer">
-                <?php include 'footer.php'; ?>
+                <?php include '../includes/footer.php'; ?>
             </div>
         </div>
     </div>
 
-    <script src="path/to/your/js/scripts.js"></script> <!-- Update with actual path -->
+    <script src="path/to/your/js/scripts.js"></script> 
 </body>
 </html>

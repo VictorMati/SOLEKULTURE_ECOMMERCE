@@ -80,4 +80,4 @@ switch ($requestUri) {
         echo "Page not found";
         break;
 }
-
+?>

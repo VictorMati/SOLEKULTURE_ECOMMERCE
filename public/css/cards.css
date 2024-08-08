@@ -1,0 +1,98 @@
+/* Root Styles */
+:root {
+    --bg-color-light: #f5f5f5;
+    --bg-color-dark: #333;
+    --bg-color-accent-light: #fff;
+    --bg-color-accent-dark: #444;
+    --text-color-light: #000;
+    --text-color-dark: #fff;
+    --accent-color: #ff6600;
+    --accent-color-alt1: #ff9966;
+    --accent-color-alt2: #ffcc99;
+    --font-family: 'Arial, sans-serif';
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: var(--font-family);
+}
+
+/* Product Card */
+.product-card, .order-card, .review-card {
+    background-color: var(--bg-color-accent-light);
+    color: var(--text-color-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 16px;
+    margin: 16px;
+}
+
+.product-card .product-image img, .order-card .order-image img, .review-card .review-image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.product-card .product-details, .order-card .order-details, .review-card .review-details {
+    margin-top: 12px;
+}
+
+.product-card .product-actions, .order-card .order-actions, .review-card .review-actions {
+    margin-top: 16px;
+}
+
+.product-card .btn, .order-card .btn, .review-card .btn {
+    background-color: var(--accent-color);
+    color: var(--text-color-dark);
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.product-card .btn:hover, .order-card .btn:hover, .review-card .btn:hover {
+    background-color: var(--accent-color-alt1);
+}
+
+.product-card .product-name, .order-card .order-id, .review-card .review-user {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product-card .product-description, .order-card .order-total, .review-card .review-comment {
+    margin-top: 8px;
+}
+
+.review-card .review-rating {
+    margin-top: 8px;
+}
+
+.review-card .star {
+    color: var(--accent-color);
+    font-size: 1.2em;
+}
+
+.review-card .star.filled {
+    color: var(--accent-color-alt1);
+}
+
+/* Dark Theme */
+body.dark-mode {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .product-card, body.dark-mode .order-card, body.dark-mode .review-card {
+    background-color: var(--bg-color-accent-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .btn {
+    background-color: var(--accent-color-alt2);
+    color: var(--text-color-light);
+}
+
+body.dark-mode .btn:hover {
+    background-color: var(--accent-color-alt1);
+}
