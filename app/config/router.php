@@ -1,17 +1,17 @@
 <?php
-// Start the session
-session_start();
+// Include the configuration file to access defined constants
+require_once __DIR__ . '/../config/config.php'; // Adjust path based on the location of config.php
 
 // Include necessary files
-require_once '../controllers/AuthController.php';
-require_once '../controllers/HomeController.php';
-require_once '../controllers/ProfileController.php';
-require_once '../controllers/ShopController.php';
-require_once '../controllers/ProductController.php';
-require_once '../controllers/CartController.php';
-require_once '../controllers/CheckoutController.php';
-require_once '../controllers/OrderController.php';
-require_once '../controllers/AdminController.php';
+require_once BASE_PATH . 'controllers/AuthController.php';
+require_once BASE_PATH . 'controllers/HomeController.php';
+require_once BASE_PATH . 'controllers/ProfileController.php';
+require_once BASE_PATH . 'controllers/ShopController.php';
+require_once BASE_PATH . 'controllers/ProductController.php';
+require_once BASE_PATH . 'controllers/CartController.php';
+require_once BASE_PATH . 'controllers/CheckoutController.php';
+require_once BASE_PATH . 'controllers/OrderController.php';
+require_once BASE_PATH . 'controllers/AdminController.php';
 
 // Get the requested URL path
 $requestUri = $_SERVER['REQUEST_URI'];

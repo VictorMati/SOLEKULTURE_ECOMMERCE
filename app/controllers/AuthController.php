@@ -6,24 +6,52 @@ class AuthController {
     public static function register() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
-            $password = $_POST['password'];
             $email = $_POST['email'];
-            $fullName = $_POST['fullName'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $fullName = $_POST['full_name'];
+            $phone = $_POST['phone'];
             $address = $_POST['address'];
-            $phoneNumber = $_POST['phoneNumber'];
-            $profileImage = $_POST['profileImage'] ?? null;
+            $profileImage = $_FILES['profile_image']['tmp_name'] ?? null; // Handle profile image upload
             $authType = 'normal'; // Default auth type
 
+            // Check if passwords match
+            if ($password !== $confirmPassword) {
+                $error = "Passwords do not match.";
+                include '../views/pages/register.php';
+                return;
+            }
+
+            // Validate the uploaded file
+            if ($profileImage && !is_uploaded_file($profileImage)) {
+                $error = "Invalid profile image.";
+                include '../views/pages/register.php';
+                return;
+            }
+
+            // Handle file upload if needed
+            $profileImagePath = null;
+            if ($profileImage) {
+                $uploadDir = '../public/uploads/';
+                $profileImagePath = $uploadDir . basename($_FILES['profile_image']['name']);
+                if (!move_uploaded_file($profileImage, $profileImagePath)) {
+                    $error = "Failed to upload profile image.";
+                    include '../views/pages/register.php';
+                    return;
+                }
+            }
+
+            // Proceed with registration
             $user = new User();
-            if ($user->register($username, $password, $email, $fullName, $address, $phoneNumber, $profileImage, $authType)) {
+            if ($user->register($username, $password, $email, $fullName, $address, $phone, $profileImagePath, $authType)) {
                 header('Location: /login');
                 exit();
             } else {
                 $error = "Registration failed. Please try again.";
-                include '../views/register.php';
+                include '../views/pages/register.php';
             }
         } else {
-            include '../views/register.php';
+            include '../views/pages/register.php';
         }
     }
 
@@ -43,10 +71,10 @@ class AuthController {
                 exit();
             } else {
                 $error = "Invalid username or password.";
-                include '../views/login.php';
+                include '../views/pages/login.php';
             }
         } else {
-            include '../views/login.php';
+            include '../views/pages/login.php';
         }
     }
 
